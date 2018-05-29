@@ -18,17 +18,25 @@
   </div>
 <% else %>
   <div class="center jumbotron">
-    <h1>Welcome to the Sample App</h1>
+    <h1>テニスフリークへようこそ！</h1>
 
     <h2>
-      This is the home page for the
-      <a href="https://railstutorial.jp/">Ruby on Rails Tutorial</a>
-      sample application.
+      応援している選手、好きなラケット…あなたの「テニス好き」を皆とシェアしよう！
     </h2>
 
-    <%= link_to "Sign up now!", signup_path, class: "btn btn-lg btn-primary" %>
+    <%= link_to "アカウント作成", signup_path, class: "btn btn-lg btn-primary" %>
+    
+    <span class ="new functions">＜追加機能＞</span>
+    
+    <div class ="new functions-menu">
+      <li>UIの日本語化</li>
+      <li>ユーザー検索機能</li>
   </div>
+  
+  </div>
+  
+  
 
-  <%= link_to image_tag("rails.png", alt: "Rails logo"),
-              'http://rubyonrails.org/' %>
+  <!-- <%= link_to image_tag("rails.png", alt: "Rails logo"),
+              'http://rubyonrails.org/' %> -->
 <% end %>
