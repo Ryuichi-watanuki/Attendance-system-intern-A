@@ -7,7 +7,7 @@
   </div>
 </div>
 
-<%= will_paginate %>
+<%= will_paginate @customers, { :previous_label => '&lt 前へ', :next_label => '次へ &gt' } %>
 
 <% unless @users.empty? %>
   <ul class="users">
@@ -20,4 +20,4 @@
   </p>
 <% end %>
 
-<%= will_paginate %>
+<%= will_paginate @customers, { :previous_label => '&lt 前へ', :next_label => '次へ &gt' } %>
