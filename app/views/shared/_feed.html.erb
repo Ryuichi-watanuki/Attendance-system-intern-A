@@ -2,5 +2,6 @@
   <ol class="microposts">
     <%= render @feed_items %>
   </ol>
-  <%= will_paginate @feed_items %>
+  <%= will_paginate @feed_items,
+  { :previous_label => '前', :next_label => '後️︎' } %>
 <% end %>

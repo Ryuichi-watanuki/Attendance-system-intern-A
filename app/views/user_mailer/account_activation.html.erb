@@ -1,8 +1,7 @@
-<h1>Sample App</h1>
+<h1>Tennis Freakへようこそ！</h1>
 
-<p>こんにちは、 <%= @user.name %>,さん</p>
+<p>こんにちは、 <%= @user.name %>さん</p>
 
-<p>テニスフリークへようこそ！</p>
 <p>下記のアカウント有効化をクリックして早速はじめましょう！</p>
 
 <%= link_to "アカウント有効化", edit_account_activation_url(@user.activation_token,

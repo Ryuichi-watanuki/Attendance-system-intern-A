@@ -96,9 +96,10 @@ p {
   }
 }
 
-ul.dropdown-menu {
-  
+.navbar-inverse .navbar-nav > .open > a:focus {
+  background-color: #3399FF;
 }
+
 
 
 // 追加機能
