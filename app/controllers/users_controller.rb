@@ -30,7 +30,7 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
     if @user.save
       @user.send_activation_email
-      flash[:info] = "ご登録のメールアドレスにEメールを送信しました。アカウントの有効化をお願いします。"
+      flash[:info] = "ご登録のアドレスにメールを送信しました。アカウントの有効化をお願いします"
       redirect_to root_url
     else
       render 'new'
