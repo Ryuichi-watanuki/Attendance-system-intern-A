@@ -126,7 +126,7 @@ p {
   background-color: #337ab7;
   &:hover{
     color: white;
-    animation: blinkAnime 1s infinite alternate;
+    animation: blinkAnime 0.5s infinite alternate;
   }
 }
 /* アニメーション */
