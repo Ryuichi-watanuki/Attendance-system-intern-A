@@ -12,9 +12,12 @@
       <%= f.label :メールアドレス %>
       <%= f.email_field :email, class: 'form-control' %>
 
+      <%= f.label :所属 %>
+      <%= f.text_field :affiliation, class: 'form-control' %>
+
       <%= f.label :パスワード %>
       <%= f.password_field :password, class: 'form-control' %>
-
+      
       <%= f.label :password_confirmation, "パスワード再確認" %>
       <%= f.password_field :password_confirmation, class: 'form-control' %>
 
