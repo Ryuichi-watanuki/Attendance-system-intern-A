@@ -15,10 +15,7 @@ $gray-medium-light: #eaeaea;
 
 body {
   padding-top: 60px;
-  background-image: url(http://www.desktopwallpaperhd.net/wallpapers/22/4/bubbles-green-simple-wallpaper-226660.jpg);
-  /* background-size:cover; */
   background-size: 100% 100%;
-  /*position: fixed;*/
   background-attachment: fixed;
 }
 
@@ -73,7 +70,7 @@ p {
 
 /* header */
 .navbar.navbar-fixed-top.navbar-inverse {
-  background-color:#3399FF;
+  background-color:black;
 }
 
 .navbar-inverse {
@@ -96,43 +93,10 @@ p {
 
 #header-right{
   color: white;
-  &:hover{
-    color: #CCFF99;
-  }
 }
 
 .navbar-inverse .navbar-nav > .open > a:focus {
   background-color: #3399FF;
-}
-
-
-
-// 追加機能
-
-// .new.functions {
-//   display:block;
-//   margin-top:10px;
-//   margin-bottom:5px;
-// }
-
-// .new .functions-menu {
-//   display: inline-block;
-//   text-align: center;
-// }
-
-.btn-primary-s {
-  border-radius: 15px 15px;
-  color: #fff;
-  background-color: #337ab7;
-  &:hover{
-    color: white;
-    animation: blinkAnime 0.5s infinite alternate;
-  }
-}
-/* アニメーション */
-@keyframes blinkAnime{
-  0% { background-color: #337ab7 }
-100% { background-color: #0000CC }
 }
 
 /* footer */
