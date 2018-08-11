@@ -1,4 +1,4 @@
-<% provide(:title, @user.name) %>
+<% provide(:title, 'Time Display') %>
 <h1>勤怠表示画面</h1>
 
 <table class = "table table-bordered table-striped table-condensed">
@@ -10,12 +10,12 @@
   　　<th class = "table-header">初日</th>
   　</tr>
   　<tr>
-  　　<th class = "table-header">所属：<%= @user.affiliation %></th>
-  　　<th class = "table-header">氏名：<%= @user.name %></th>
+  　　<th class = "table-header">所属</th>
+  　　<th class = "table-header">氏名:<%= user.name %></th>
   　　<th class = "table-header">コード</th>
-  　　<th class = "table-header">空白</th>
+  　　<th class = "table-header">数字</th>
   　　<th class = "table-header">出勤日数</th>
-  　　<th class = "table-header">締日</th>
+  　　<th class = "table-header">締め</th>
   　</tr>
   </thead>　
 </table>

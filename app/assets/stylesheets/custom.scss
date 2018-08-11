@@ -31,10 +31,14 @@ textarea {
 
 .center {
   text-align: center;
-  background-color: rgba(255, 255, 255, 0);
+  // background-color: rgba(255, 255, 255, 0);
   h1 {
     margin-bottom: 10px;
   }
+}
+
+.btn.btn-primary {
+  margin-top: 15px;
 }
 
 /* typography */
@@ -86,17 +90,12 @@ p {
   padding-top: 9px;
   font-weight: bold;
   &:hover {
-    color: #CCFF99;
     text-decoration: none;
   }
 }
 
 #header-right{
   color: white;
-}
-
-.navbar-inverse .navbar-nav > .open > a:focus {
-  background-color: #3399FF;
 }
 
 /* footer */
@@ -324,4 +323,21 @@ span.picture {
       width: 50px;
     }
   }
+}
+
+/* テーブル */
+
+.header {
+  text-align: center;
+}
+
+.table-header {
+  display: inline-block;
+  text-align: center;
+  font-weight: 600;
+  display: table-cell;
+}
+
+.btn.edit-attendance {
+  margin-bottom: 10px;
 }

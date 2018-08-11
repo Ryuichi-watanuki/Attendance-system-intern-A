@@ -19,7 +19,7 @@ class UsersController < ApplicationController
   
   def show
     @user = User.find(params[:id])
-    @microposts = @user.microposts.paginate(page: params[:page])
+    # @microposts = @user.microposts.paginate(page: params[:page])
   end
   
   def new
@@ -71,6 +71,12 @@ class UsersController < ApplicationController
     render 'show_follow'
   end
   
+  def edit_basic_info
+  end
+  
+  def time_display
+  end
+  
   private
 
     def user_params
@@ -104,3 +110,4 @@ class UsersController < ApplicationController
       redirect_to(root_url) unless current_user.admin?
     end
 end
+
