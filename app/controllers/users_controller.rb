@@ -44,7 +44,7 @@ class UsersController < ApplicationController
   def update
     @user = User.find(params[:id])
     if @user.update_attributes(user_params)
-      flash[:success] = "Profile updated"
+      flash[:success] = "更新しました。"
       redirect_to @user
     else
       render 'edit'
@@ -81,7 +81,7 @@ class UsersController < ApplicationController
 
     def user_params
       params.require(:user).permit(:name, :email, :password,
-      :affiliation, :password_confirmation)
+      :affiliation, :basic_time, :specified_working_hour, :password_confirmation)
     end
     
     def search_params

@@ -327,17 +327,20 @@ span.picture {
 
 /* テーブル */
 
+table {
+  width: 100%;
+}
+
 .header {
   text-align: center;
+  vertical-align: middle;
 }
 
 .table-header {
-  display: inline-block;
+  vertical-align: middle;
   text-align: center;
-  font-weight: 600;
-  display: table-cell;
 }
 
 .btn.edit-attendance {
-  margin-bottom: 10px;
+  margin: 10px 0px 10px 20px;
 }

@@ -15,6 +15,12 @@
       <%= f.label :所属 %>
       <%= f.text_field :affiliation, class: 'form-control' %>
 
+      <%= f.label :基本時間 %>
+      <%= f.time_field :basic_time, class: 'form-control' %>
+
+      <%= f.label :指定勤務時間 %>
+      <%= f.time_field :specified_working_hour, class: 'form-control'%>
+
       <%= f.label :パスワード %>
       <%= f.password_field :password, class: 'form-control' %>
       
