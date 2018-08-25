@@ -8,6 +8,9 @@ Rails.application.routes.draw do
   get '/basic_info',      to: 'users#edit_basic_info'
   get '/time_display',    to: 'users#time_display'
   
+  post '/users/:id', to: 'users#time_in'
+  
+  
   resources :users do
     member do
       get :following, :followers

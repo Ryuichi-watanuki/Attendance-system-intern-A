@@ -1,83 +1,116 @@
-<% provide(:title, @user.name) %>
-<h1>勤怠表示画面</h1>
+<% provide(:title,"勤怠表示画面" ) %>
+
+<%# require "date" %>
+<%# require "time" %>
+
+<!--テストエリアーーーーーーーーーーーーーーーーーーーーーーーーーーーーー-->
+<p>上と同じインスタンスのattendance_day <%= @attendance_day.attendance_day %></p>
+<!--ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー-->
+
 <div>
-<table class = "table-bordered table-condensed">
+  <!--テーブル上部-->
+  <table class = "table-bordered table-condensed">
+    
+    <tr>
+      <td width = "35%">
+        <%= link_to "←", login_path, class: "btn btn-info" %>
+        &emsp;<%= @today.to_s(:month) %>　時間管理表&emsp;
+        <%= link_to "→", login_path, class: "btn btn-info" %>
+      </td>
+  　　<td width = "25%">指定勤務時間　<%= @user.specified_working_time.to_s(:time) %></td>
+  　　<td width = "25%" colspan = "3"><%= @user.basic_time.to_s(:time) %>　基本時間</td>
+  　　<td width = "15%">初日 <%= @first_day.to_s(:date) %></td>
+  　</tr>
+  　
+  　<tr>
+  　　<td>所属：<%= @user.affiliation %></td>
+  　　<td>氏名：<%= @user.name %></td>
+  　　<td width = "7%">コード</td>
+  　　<td width = "7%">874</td>
+  　　<td width = "11%">出勤日数</td>
+  　　<td>締日 <%= @last_day.to_s(:date) %></td>
+  　</tr>
+  　
+  </table>
   
-  <tr>
-    <th class = "table-header">
-      <%= link_to "←", login_path, class: "btn btn-default" %>
-      &emsp;時間管表&emsp;
-      <%= link_to "→", login_path, class: "btn btn-default" %>
-    </th>
-　　<th class = "table-header">指定勤務時間　<%= @user.specified_working_hour.to_s(:time) %></th>
-　　<th class = "table-header" colspan = "3"><%= @user.basic_time.to_s(:time) %>　基本時間</th>
-　　<th class = "table-header">初日</th>
-　</tr>
-　
-　<tr>
-　　<th class = "table-header">所属：<%= @user.affiliation %></th>
-　　<th class = "table-header">氏名：<%= @user.name %></th>
-　　<th class = "table-header">コード</th>
-　　<th class = "table-header"></th>
-　　<th class = "table-header">出勤日数</th>
-　　<th class = "table-header">締日</th>
-　</tr>
-　
-</table>
+  <!--勤怠編集画面遷移ボタン-->
+  <%= link_to "勤怠を編集", login_path, class: "btn btn-edit-basic-info btn-success" %>
 
-<%= link_to "勤怠を編集", login_path, class: "btn edit-attendance btn-success" %>
-
-<table class = "table-bordered table-striped table-condensed">
-  <thead>
+  <!--勤怠表示テーブル-->
+  <table class = "table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th rowspan = "2" width = "7%">日付</th>
+        <th rowspan = "2" width = "7%">曜日</th>
+        <th colspan = "3" width = "18%">出社</th>
+        <th colspan = "3" width = "18%">退社</th>
+        <th rowspan = "2" width = "10%">在社時間</th>
+        <th rowspan = "2" width = "10%">備考</th>
+        <th rowspan = "2" width = "10%">残業指示</th>
+        <th rowspan = "2" width = "20%">指示者</th>
+      </tr>
+      
+      <tr>
+        <th width = "5%">時</th>
+        <th width = "5%">分</th>
+        <th width = "8%">空白</th>
+        <th width = "5%">時</th>
+        <th width = "5%">分</th>
+        <th width = "8%">空白</th>
+      </tr>
+    </thead>
     
-    <tr>
-      <th rowspan = "2" valign="middle" class = "table-header">日付</th>
-      <th rowspan = "2" class = "table-header">曜日</th>
-      <th colspan = "3" class = "table-header">出社</th>
-      <th colspan = "3" class = "table-header">退社</th>
-      <th rowspan = "2" class = "table-header">在社時間</th>
-      <th rowspan = "2" class = "table-header">備考</th>
-      <th rowspan = "2" class = "table-header">残業指示</th>
-      <th rowspan = "2" class = "table-header">指示者</th>
-    </tr>
+    <tbody>
+      <!--月初日から月締日までの繰り返し処理行-->
+      <% (@first_day..@last_day).each do |day| %>
+      <tr class = "days" >
+        <!--日付表示-->
+        <td><%= day.to_s(:days) %></td>
+        <!--曜日表示-->
+        <td><%= %w{日 月 火 水 木 金 土}[day.wday] %></td>
+        <!--出社時間-->
+        <td>
+          <% if day == @attendance_day.attendance_day && @attendance.time_in.present? %>
+          <%= @attendance.time_in.to_s(:hour) %>
+          <% end %>
+        </td>
+        <td>
+          <% if day == @attendance_day.attendance_day && @attendance.time_in.present? %>
+          <%= @attendance.time_in.to_s(:minute) %>
+          <% end %>
+        </td>
+        <td width = "50">
+          <% if day == @attendance_day.attendance_day && @attendance.time_in.nil? %>
+          <%= button_to "出社",{action: "time_in"},{class: "btn btn-attendance btn-default"}%>
+          <% end %>
+        </td>
+        <!--退社時間-->
+        <td></td>
+        <td></td>
+        <td></td>
+        <!--在社時間-->
+        <td></td>
+        <!--備考-->
+        <td></td>
+        <!--残業指示-->
+        <td></td>
+        <!--指示者-->
+        <td></td>
+      </tr>
+      <!--繰り返し処理終了-->
+      <% end %>
+    </tbody>
     
-    <tr>
-      <th class = "table-header">時</th>
-      <th class = "table-header">分</th>
-      <th class = "table-header">空白</th>
-      <th class = "table-header">時</th>
-      <th class = "table-header">分</th>
-      <th class = "table-header">空白</th>
-    </tr>
-    
-  </thead>
-  
-  <tbody>
-    <tr>
-      <td>日付・・・</td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-    </tr>
-  </tbody>
-  
-  <tfoot>
-    <tr>
-      <td colspan = "2">総合勤務時間</td>
-      <td colspan = "6"></td>
-      <td>在社時間合計</td>
-      <td></td>
-      <td></td>
-      <td>所属長承認</td>
-    </tr>
-  </tfoot>
-</table>
+    <!--勤怠表示テーブル最下部-->
+    <tfoot>
+      <tr>
+        <td colspan = "2">総合勤務時間</td>
+        <td colspan = "6"></td>
+        <td>在社時間合計</td>
+        <td></td>
+        <td></td>
+        <td>所属長承認</td>
+      </tr>
+    </tfoot>
+  </table>
 </div>

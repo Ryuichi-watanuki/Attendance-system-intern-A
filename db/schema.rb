@@ -10,7 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180815135755) do
+ActiveRecord::Schema.define(version: 20180821134018) do
+
+  create_table "attendances", force: :cascade do |t|
+    t.date "attendance_day"
+    t.datetime "time_in"
+    t.datetime "time_out"
+    t.integer "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_attendances_on_user_id"
+  end
 
   create_table "microposts", force: :cascade do |t|
     t.text "content"
@@ -46,8 +56,8 @@ ActiveRecord::Schema.define(version: 20180815135755) do
     t.string "reset_digest"
     t.datetime "reset_sent_at"
     t.string "affiliation"
-    t.time "basic_time"
-    t.time "specified_working_hour"
+    t.datetime "basic_time"
+    t.datetime "specified_working_time"
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 

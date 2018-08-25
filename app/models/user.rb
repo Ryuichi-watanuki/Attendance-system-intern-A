@@ -1,4 +1,8 @@
 class User < ApplicationRecord
+  # attendancesテーブルとの関連付け
+  # userを削除した時、関連したデータを削除
+  has_many :attendances, dependent: :destroy
+  
   has_many :microposts, dependent: :destroy
   has_many :active_relationships, class_name:  "Relationship",
                                   foreign_key: "follower_id",
@@ -69,7 +73,7 @@ class User < ApplicationRecord
     update_attribute(:reset_sent_at, Time.zone.now)
   end
   
-  # パスワード再設定のメールを送信する
+  # パスワード再設定のメールを送信す��
   def send_password_reset_email
     UserMailer.password_reset(self).deliver_now
   end

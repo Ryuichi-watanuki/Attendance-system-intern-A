@@ -17,10 +17,26 @@ class UsersController < ApplicationController
     @users = @q.result.paginate(page: params[:page])
   end
   
+  # 勤怠表示画面
   def show
     @user = User.find(params[:id])
-    # @microposts = @user.microposts.paginate(page: params[:page])
+    @attendance = @user.attendances.find_by(params[:user_id])
+    # @user_attendances = @user.attendances
+    @attendance_day = @user.attendances.build(attendance_day: Date.today)
+    
+    @today = Date.today
+    @first_day = @today.beginning_of_month
+    @last_day = @today.end_of_month
   end
+  
+  def time_in
+    @user = User.find(params[:id])
+    @time_in = @user.attendances.build(attendance_day: Date.today, time_in: DateTime.now)
+    @time_in.save
+    
+    
+  end
+
   
   def new
     @user = User.new
@@ -81,8 +97,12 @@ class UsersController < ApplicationController
 
     def user_params
       params.require(:user).permit(:name, :email, :password,
-      :affiliation, :basic_time, :specified_working_hour, :password_confirmation)
+      :affiliation, :basic_time, :specified_working_time, :password_confirmation)
     end
+    
+    def attendance_params
+    end
+    
     
     def search_params
       params.require(:q).permit(:name_cont)

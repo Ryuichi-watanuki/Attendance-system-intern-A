@@ -329,18 +329,26 @@ span.picture {
 
 table {
   width: 100%;
-}
-
-.header {
-  text-align: center;
   vertical-align: middle;
+  text-align: center;  
 }
 
-.table-header {
+th {
   vertical-align: middle;
-  text-align: center;
+  text-align: center;  
 }
 
-.btn.edit-attendance {
+.days {
+  text-align: center;
+
+}
+
+// 勤怠編集画面遷移ボタン
+.btn-edit-basic-info {
   margin: 10px 0px 10px 20px;
+}
+
+// 出社・退社ボタン
+.btn-attendance {
+  padding: 0px 15px 0px 15px;
 }

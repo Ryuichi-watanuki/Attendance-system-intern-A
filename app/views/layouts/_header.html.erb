@@ -2,8 +2,10 @@
   <div class="container">
     <%= link_to "勤怠システム", root_path, id: "logo" %>
     <nav>
+      <!--ナビゲーションバー右側-->
       <ul class="nav navbar-nav navbar-right">
         <li><%= link_to "トップへ", root_path, id: "header-right" %></li>
+        <!--ログイン済-->
         <% if logged_in? %>
           <li><%= link_to "ユーザ一覧", users_path, id: "header-right" %></li>
           <li><%= link_to "基本情報の修正", basic_info_path, id: "header-right" %></li>
@@ -20,6 +22,7 @@
               </li>
             </ul>
           </li>
+        <!--非ログイン-->
         <% else %>
           <li><%= link_to "ログイン", login_path, id: "header-right" %></li>
         <% end %>
