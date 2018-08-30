@@ -9,7 +9,7 @@ Time::DATE_FORMATS[:time] = "%-H.%M"
 Date::DATE_FORMATS[:date] = "%m/%d"
 
 # 例：1/01 （月は頭０消し）
-Date::DATE_FORMATS[:days] = "%-m/%d"
+Date::DATE_FORMATS[:day] = "%-m/%d"
 
 # 例：2018年1月（月は頭０消し）
 Date::DATE_FORMATS[:month] = "%Y年%-m月"

@@ -9,15 +9,18 @@ Rails.application.routes.draw do
   get '/time_display',    to: 'users#time_display'
   
   post '/users/:id', to: 'users#time_in'
-  
-  
+  patch '/users/:id', to: 'users#time_out'
+
+
   resources :users do
     member do
       get :following, :followers
     end
   end
+  
   resources :account_activations, only: [:edit]
   resources :password_resets,     only: [:new, :create, :edit, :update]
   resources :microposts,          only: [:create, :destroy]
   resources :relationships,       only: [:create, :destroy]
+  
 end
