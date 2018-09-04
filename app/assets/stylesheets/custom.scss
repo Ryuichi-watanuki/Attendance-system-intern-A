@@ -219,7 +219,7 @@ input, textarea, select, .uneditable-input {
 }
 
 input {
-  height: auto !important;
+  // height: auto !important;
 }
 
 #error_explanation {
@@ -344,11 +344,30 @@ th {
 }
 
 // 勤怠編集画面遷移ボタン
-.btn-edit-basic-info {
-  margin: 10px 0px 10px 20px;
+.btn-edit-attendance {
+  margin: 25px 0px 10px 0px;
+  width: 100%;
 }
 
 // 出社・退社ボタン
 .btn-attendance {
   padding: 0px 15px 0px 15px;
+}
+
+.tf {
+  margin: 2px;
+}
+
+a.attendance-update {
+  // margin-left: auto;
+  // margin-right: auto;
+}
+
+a.updbtn {
+  margin: 10px 20px;
+  text-align: center;
+}
+
+.btncancel {
+  margin-top: 15px;
 }

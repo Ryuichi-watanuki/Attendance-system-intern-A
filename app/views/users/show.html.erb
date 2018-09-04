@@ -11,9 +11,9 @@
     <tr>
       <!--年月切り替え表示-->
       <td width = "35%">
-        <%= link_to "←", user_url(params:{id: @user.id, first_day: @first_day.prev_month }), class: "btn btn-info" %>
+        <%= link_to "◀︎︎", user_url(params:{id: @user.id, first_day: @first_day.prev_month }), class: "btn btn-xs btn-default" %>
           &emsp;<%= @first_day.to_s(:month) %>　時間管理表&emsp;
-        <%= link_to "→", user_url(params:{id: @user.id, first_day: @first_day.next_month }), class: "btn btn-info" %>
+        <%= link_to "▶︎︎︎", user_url(params:{id: @user.id, first_day: @first_day.next_month }), class: "btn btn-xs btn-default" %>
       </td>
       
       <!--指定勤務時間-->
@@ -45,9 +45,10 @@
   　</tr>
   　
   </table>
-  
+
   <!--勤怠編集画面遷移ボタン-->
-  <%= link_to "勤怠を編集", login_path, class: "btn btn-edit-basic-info btn-success" %>
+  <%= link_to "勤怠を編集", attendance_edit_url(@attendance,\
+  params:{id: @user.id, first_day: @first_day }),class: "btn btn-edit-attendance btn-success" %>
 
   <!--勤怠表示テーブル-->
   <table class = "table-bordered table-striped table-condensed">
@@ -66,10 +67,10 @@
       <tr>
         <th width = "5%">時</th>
         <th width = "5%">分</th>
-        <th width = "10%">空白</th>
+        <th width = "10%"></th>
         <th width = "5%">時</th>
         <th width = "5%">分</th>
-        <th width = "10%">空白</th>
+        <th width = "10%"></th>
       </tr>
     </thead>
     
@@ -149,14 +150,12 @@
     <tfoot>
       <tr>
         <!--（総合勤務時間）基本時間 * 出勤日数-->
-        <td colspan = "2"><%= 7.5 * @attendances_count %></td>
+        <td colspan = "2"><%= 7.5 * @attendances_sum %></td>
         <!--未定-->
         <td colspan = "6"></td>
         <!--トータル在社時間-->
         <td>
-          <% if not @total_time.nil? %>
-            <%= ((@total_time.to_d/ 60)/ 60).truncate(2) %>
-          <% end %>
+          <%= ((@total_time.to_d/ 60)/ 60).truncate(2) if @total_time.present? %>
         </td>
         <td></td>
         <td></td>

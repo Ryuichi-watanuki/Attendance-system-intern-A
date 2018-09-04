@@ -18,6 +18,7 @@ class UsersController < ApplicationController
     @users = @q.result.paginate(page: params[:page])
   end
   
+  
   # 勤怠表示画面
   def show
     @user = User.find(params[:id])
@@ -26,7 +27,7 @@ class UsersController < ApplicationController
     if not params[:first_day].nil?
       @first_day = Date.parse(params[:first_day])
     else
-      @first_day = Date.today.beginning_of_month
+      @first_day = Date.current.beginning_of_month
     end
     @last_day = @first_day.end_of_month
     
@@ -42,7 +43,7 @@ class UsersController < ApplicationController
     
     # 当月を昇順で取得し@daysへ代入
     @days = @user.attendances.where('attendance_day >= ? and attendance_day <= ?', \
-    @first_day, @last_day).order('attendance_day ASC')
+    @first_day, @last_day).order('attendance_day')
     
     # 在社時間の集計、ついでに出勤日数も
     i = 0
@@ -54,8 +55,10 @@ class UsersController < ApplicationController
         i = i + 1
       end
     end
-    @attendances_count = i
     
+    # 出勤日数、どっち使ってもOK
+    @attendances_count = i
+    @attendances_sum = @days.where.not(time_in: nil, time_out: nil).count
   
     
   end
@@ -63,7 +66,8 @@ class UsersController < ApplicationController
   def time_in
     @user = User.find(params[:id])
     @time_in = @user.attendances.find_by(attendance_day: Date.current)
-    @time_in.update_attributes(time_in: DateTime.current)
+    @time_in.update_attributes(time_in: DateTime.new(DateTime.now.year,\
+    DateTime.now.month, DateTime.now.day,DateTime.now.hour,DateTime.now.min,0))
     flash[:info] = "今日も一日がんばるぞい！"
     redirect_to @user
   end
@@ -71,8 +75,13 @@ class UsersController < ApplicationController
   def time_out
     @user = User.find(params[:id])
     @time_out = @user.attendances.find_by(attendance_day: Date.current)
-    @time_out.update_attributes(time_out: DateTime.current)
+    timeout = DateTime.new(DateTime.now.year,DateTime.now.month,\
+    DateTime.now.day,DateTime.now.hour,DateTime.now.min,0)
+    @time_out.update_attributes(time_out: timeout)
     redirect_to @user
+  end
+  
+  def update_all
   end
   
   def new
@@ -125,10 +134,27 @@ class UsersController < ApplicationController
   end
   
   def edit_basic_info
+    
+    if params[:id].nil?
+      @user  = User.find(current_user.id)
+    else
+      @user  = User.find(params[:id])
+    end
+    
   end
   
-  def time_display
+  def basic_info_edit
+    
+      @user  = User.find(params[:id])
+    
+    if @user.update_attributes(user_params)
+      flash[:success] = "基本情報を更新しました。"
+      redirect_to @user
+    else
+      redirect_to @user
+    end 
   end
+  
   
   private
 
@@ -136,10 +162,6 @@ class UsersController < ApplicationController
       params.require(:user).permit(:name, :email, :password,
       :affiliation, :basic_time, :specified_working_time, :password_confirmation)
     end
-    
-    def attendance_params
-    end
-    
     
     def search_params
       params.require(:q).permit(:name_cont)

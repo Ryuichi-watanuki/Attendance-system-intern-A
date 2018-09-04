@@ -13,7 +13,7 @@ module UsersHelper
   def times(x,y)
     c = Time.mktime(x.year, x.month, x.day, x.hour, x.min, 0, 0)
     d = Time.mktime(y.year, y.month, y.day, y.hour, y.min, 0, 0)
-    d - c
+    (d - c).to_i
   end  
   
   
