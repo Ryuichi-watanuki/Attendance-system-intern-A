@@ -14,7 +14,15 @@ module UsersHelper
     c = Time.mktime(x.year, x.month, x.day, x.hour, x.min, 0, 0)
     d = Time.mktime(y.year, y.month, y.day, y.hour, y.min, 0, 0)
     (d - c).to_i
-  end  
+  end
+  
+  # format("%.2f", ((@user.basic_work_time.hour*60.0) + @user.basic_work_time.min)/60) if !@user.basic_work_time.blank?
+  
+  def basic_info_time(t)
+    format("%.2f", ((t.hour*60.0) + t.min)/60) if !t.blank?
+  end
+  
+   
   
   
   # 引数で与えられたユーザーのGravatar画像を返す

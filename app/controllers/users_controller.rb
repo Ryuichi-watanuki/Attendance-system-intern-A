@@ -78,6 +78,7 @@ class UsersController < ApplicationController
     timeout = DateTime.new(DateTime.now.year,DateTime.now.month,\
     DateTime.now.day,DateTime.now.hour,DateTime.now.min,0)
     @time_out.update_attributes(time_out: timeout)
+    flash[:info] = "今日も一日お疲れ様でした。"
     redirect_to @user
   end
   

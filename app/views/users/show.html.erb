@@ -1,7 +1,7 @@
 <% provide(:title,"勤怠表示画面" ) %>
 
 <!--テストエリアーーーーーーーーーーーーーーーーーーーーーーーーーーーーー-->
-<p><%#= @days.to_a %></p>
+<p><%#= basic_info_time(@user.basic_time) %></p>
 <!--ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー-->
 
 <div>
@@ -17,10 +17,10 @@
       </td>
       
       <!--指定勤務時間-->
-  　　<td width = "25%">指定勤務時間　<%= @user.specified_working_time.to_s(:time) %></td>
+  　　<td width = "25%">指定勤務時間　<%= basic_info_time(@user.specified_working_time) %></td>
   　　
   　　<!--基本時間-->
-  　　<td width = "25%" colspan = "3"><%= @user.basic_time.to_s(:time) %>　基本時間</td>
+  　　<td width = "25%" colspan = "3"><%= basic_info_time(@user.basic_time) %>　基本時間</td>
   　　
   　　<!--初日-->
   　　<td width = "15%">初日 <%= @first_day.to_s(:date) %></td>
@@ -101,7 +101,7 @@
         <td>
           <!--(条件) 各日付の中で当日に該当 かつ time_inが存在しない-->
           <% if d.attendance_day == Date.current && d.time_in.nil? %>
-            <%= button_to "出社",{action: "time_in"},{class: "btn btn-attendance btn-warning"}%>
+            <%= button_to "出社",{action: "time_in"},{class: "btn btn-attendance btn-default"}%>
           <% end %>
         </td>
         
@@ -120,7 +120,7 @@
           <!--（条件）各日付の中で当日に該当 かつ time_inが存在し、time_outは存在しない。-->
           <% if d.attendance_day == Date.current && d.time_in.present? && d.time_out.nil? %>
             <%= button_to "退社", {controller: 'users', action: 'time_out'}, \
-            {method: :patch, class: "btn btn-attendance btn-danger"}%>
+            {method: :patch, class: "btn btn-attendance btn-default"}%>
           <% end %>
         </td>
         
@@ -150,7 +150,7 @@
     <tfoot>
       <tr>
         <!--（総合勤務時間）基本時間 * 出勤日数-->
-        <td colspan = "2"><%= 7.5 * @attendances_sum %></td>
+        <td colspan = "2"><%= basic_info_time(@user.basic_time).to_d * @attendances_sum %></td>
         <!--未定-->
         <td colspan = "6"></td>
         <!--トータル在社時間-->

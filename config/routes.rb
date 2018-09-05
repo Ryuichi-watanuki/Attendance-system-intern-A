@@ -7,7 +7,7 @@ Rails.application.routes.draw do
   
   get '/basic_info',      to: 'users#edit_basic_info'
   post'/basic_info_edit', to: 'users#basic_info_edit'
-
+  
   post '/users/:id', to: 'users#time_in'
   patch '/users/:id', to: 'users#time_out'
   
@@ -21,6 +21,8 @@ Rails.application.routes.draw do
       get :following, :followers
     end
   end
+  
+
   
   resource :attendances
   
