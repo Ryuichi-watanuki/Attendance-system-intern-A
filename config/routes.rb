@@ -8,8 +8,8 @@ Rails.application.routes.draw do
   get '/basic_info',      to: 'users#edit_basic_info'
   post'/basic_info_edit', to: 'users#basic_info_edit'
   
-  post '/users/:id', to: 'users#time_in'
-  patch '/users/:id', to: 'users#time_out'
+  post '/timein_creat', to: 'users#time_in'
+  post '/timeout_creat', to: 'users#time_out'
   
   get '/attendance_edit', to: 'attendances#attendance_edit'
   get '/attendance_edit', to: 'users#show'

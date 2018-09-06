@@ -99,9 +99,10 @@
         
         <!--出社ボタン-->
         <td>
+          <%#= button_to 'download', books_path(format: :csv), method: :get %>
           <!--(条件) 各日付の中で当日に該当 かつ time_inが存在しない-->
           <% if d.attendance_day == Date.current && d.time_in.nil? %>
-            <%= button_to "出社",{action: "time_in"},{class: "btn btn-attendance btn-default"}%>
+            <%= button_to "出社",timein_creat_path(@user,params:{id: @user.id}),{class: "btn btn-attendance btn-default"}%>
           <% end %>
         </td>
         
@@ -119,8 +120,7 @@
         <td>
           <!--（条件）各日付の中で当日に該当 かつ time_inが存在し、time_outは存在しない。-->
           <% if d.attendance_day == Date.current && d.time_in.present? && d.time_out.nil? %>
-            <%= button_to "退社", {controller: 'users', action: 'time_out'}, \
-            {method: :patch, class: "btn btn-attendance btn-default"}%>
+            <%= button_to "退社",timeout_creat_path(@user,params:{id: @user.id}), class: "btn btn-attendance btn-default"%>
           <% end %>
         </td>
         
