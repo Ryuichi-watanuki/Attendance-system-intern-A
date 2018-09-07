@@ -7,17 +7,6 @@ class UsersController < ApplicationController
   before_action :correct_user,   only: [:edit, :update]
   before_action :admin_user,     only: :destroy
   
-  def index
-    if params[:q] && params[:q].reject { |key, value| value.blank? }.present?
-      @q = User.ransack(search_params, activated_true: true)
-      @title = "Search Result"
-    else
-      @q = User.ransack(activated_true: true)
-      @title = "All users"
-    end
-    @users = @q.result.paginate(page: params[:page])
-  end
-  
   
   # 勤怠表示画面
   def show
@@ -82,8 +71,18 @@ class UsersController < ApplicationController
     redirect_to @user
   end
   
-  def update_all
+  def index
+    if params[:q] && params[:q].reject { |key, value| value.blank? }.present?
+      @q = User.ransack(search_params, activated: true)
+      @title = "検索結果"
+    else
+      @q = User.ransack(activated: true)
+      @title = "全てのユーザー"
+    end
+    @users = @q.result.paginate(page: params[:page])
+    # @users = User.where(activated: true).paginate(page: params[:page]).search(params[:search])
   end
+
   
   def new
     @user = User.new
@@ -92,9 +91,12 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
     if @user.save
-      @user.send_activation_email
-      flash[:info] = "ご登録のアドレスにメールを送信しました。アカウントの有効化をお願いします"
-      redirect_to root_url
+      # @user.send_activation_email
+      # flash[:info] = "ご登録のアドレスにメールを送信しました。アカウントの有効化をお願いします"
+      log_in(@user)
+      # params[:session][:remember_me] == '1' ? remember(user) : forget(user)
+      redirect_to @user
+      # redirect_to root_url
     else
       render 'new'
     end
@@ -160,7 +162,7 @@ class UsersController < ApplicationController
   private
 
     def user_params
-      params.require(:user).permit(:name, :email, :password,
+      params.require(:user).permit(:name, :email, :password, :activated,
       :affiliation, :basic_time, :specified_working_time, :password_confirmation)
     end
     

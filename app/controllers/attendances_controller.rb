@@ -43,11 +43,11 @@ class AttendancesController < ApplicationController
       if attendance.attendance_day > Date.current && !current_user.admin?
         flash[:warning] = '明日以降の勤怠編集は出来ません。'
       
-      # elsif item["time_in"].blank? && item["time_in"].blank?
+      elsif item["time_in"].blank? && item["time_in"].blank?
 
-      # #出社時間と退社時間の両方の存在を確認
-      # elsif item["time_in"].blank? || item["time_in"].blank?
-      #   flash[:warning] = '一部編集が無効となった項目があります。'
+      #出社時間と退社時間の両方の存在を確認
+      elsif item["time_in"].blank? || item["time_in"].blank?
+        flash[:warning] = '一部編集が無効となった項目があります。'
       
       #出社時間 > 退社時間ではないか
       elsif item["time_in"].to_s > item["time_out"].to_s
