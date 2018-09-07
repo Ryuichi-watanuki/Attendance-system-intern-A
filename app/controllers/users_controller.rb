@@ -1,11 +1,9 @@
 require "date"
 class UsersController < ApplicationController
-  include UsersHelper
-  before_action :logged_in_user, only: [:index, :edit, :update, :destroy,
-                            :following, :followers]
-  
+  before_action :logged_in_user, only: [:index, :edit, :update, :destroy]
   before_action :correct_user,   only: [:edit, :update]
   before_action :admin_user,     only: :destroy
+  
   
   
   # 勤怠表示画面
@@ -18,6 +16,7 @@ class UsersController < ApplicationController
     else
       @first_day = Date.current.beginning_of_month
     end
+    
     @last_day = @first_day.end_of_month
     
     # 取得月の初日から終日まで繰り返し処理
@@ -48,8 +47,6 @@ class UsersController < ApplicationController
     # 出勤日数、どっち使ってもOK
     @attendances_count = i
     @attendances_sum = @days.where.not(time_in: nil, time_out: nil).count
-  
-    
   end
   
   def time_in
@@ -80,7 +77,6 @@ class UsersController < ApplicationController
       @title = "全てのユーザー"
     end
     @users = @q.result.paginate(page: params[:page])
-    # @users = User.where(activated: true).paginate(page: params[:page]).search(params[:search])
   end
 
   
@@ -91,12 +87,9 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
     if @user.save
-      # @user.send_activation_email
-      # flash[:info] = "ご登録のアドレスにメールを送信しました。アカウントの有効化をお願いします"
       log_in(@user)
       # params[:session][:remember_me] == '1' ? remember(user) : forget(user)
       redirect_to @user
-      # redirect_to root_url
     else
       render 'new'
     end
@@ -122,40 +115,23 @@ class UsersController < ApplicationController
     redirect_to users_url
   end
   
-  def following
-    @title = "フォロー中"
-    @user  = User.find(params[:id])
-    @users = @user.following.paginate(page: params[:page])
-    render 'show_follow'
-  end
-
-  def followers
-    @title = "フォロワー"
-    @user  = User.find(params[:id])
-    @users = @user.followers.paginate(page: params[:page])
-    render 'show_follow'
-  end
-  
   def edit_basic_info
-    
     if params[:id].nil?
       @user  = User.find(current_user.id)
     else
       @user  = User.find(params[:id])
     end
-    
   end
   
   def basic_info_edit
-    
-      @user  = User.find(params[:id])
+    @user  = User.find(params[:id])
     
     if @user.update_attributes(user_params)
       flash[:success] = "基本情報を更新しました。"
       redirect_to @user
     else
       redirect_to @user
-    end 
+    end
   end
   
   
@@ -169,17 +145,6 @@ class UsersController < ApplicationController
     def search_params
       params.require(:q).permit(:name_cont)
     end
-    
-    # beforeアクション
-
-    # ログイン済みユーザーかどうか確認
-    # def logged_in_user
-    #   unless logged_in?
-    #   store_location
-    #     flash[:danger] = "Please log in."
-    #     redirect_to login_url
-    #   end
-    # end
     
     # 正しいユーザーかどうか確認
     def correct_user

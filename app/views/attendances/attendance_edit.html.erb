@@ -25,10 +25,10 @@
     
     <tbody>
       <% @days.each do |d| %>
-      <%= fields_for "attendances[]", d do |tf| %>
+        <%= fields_for "attendances[]", d do |tf| %>
           <tr>
-            <td><%= d.attendance_day.to_s(:day) %></td>
-            <td><%= @week[d.attendance_day.wday] %></td>
+            <td class = "day"><%= d.attendance_day.to_s(:day) %></td>
+            <td class = "day"><%= @week[d.attendance_day.wday] %></td>
             <td><%= tf.time_field :time_in, class: "form-control tf" %></td>
             <td><%= tf.time_field :time_out, class: "form-control tf" %></td>
             <td>
@@ -40,9 +40,7 @@
             <td></td>
             <td></td>
           </tr>
-      <!--fields_for締め-->
-      <% end %>
-      <!--each締め-->
+        <% end %>
       <% end %>
     </tbody>
     
@@ -50,10 +48,10 @@
   
   <center>
     <%= f.submit "編集内容で更新", style:"width:300px", class: "btn btn-primary" %>
+    
     <%= link_to "キャンセル", user_url(@user, params:{first_day: @first_day }),\
     style:"width:300px", class: "btn btncancel btn-default" %>
   </center>
   
-  <!--form_forの閉め-->
   <% end %>
 </div>

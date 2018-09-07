@@ -1,48 +1,44 @@
 <header class="navbar navbar-fixed-top navbar-inverse">
+  
   <div class="container">
     
     <%= link_to "勤怠システム", root_path, id: "logo" %>
     
-    <!--ヘッダー右側-->
     <nav>
       <ul class="nav navbar-nav navbar-right">
-        <!--ログイン済-->
         <% if logged_in? %>
           <li><%= link_to "トップへ", root_path,id: "header-right" %></li>
           
-          <!--ログイン済　かつ　管理者権限-->
           <% if current_user.admin? %>
             <li><%= link_to "ユーザ一覧", users_path, id: "header-right" %></li>
             
-            <!--パラメータがない？-->
             <% if params[:id].nil? %>
-              <!--ないよ-->
               <li><%= link_to "基本情報修正", basic_info_url, id: "header-right" %></li>
             <% else %>
-              <!--あるよ-->
               <li><%= link_to "基本情報の修正", basic_info_url(params:{id: @user.id}), id: "header-right" %></li>
             <% end %>
             
           <% end %>
           
-          <!--ログイン済、一般-->
           <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="color:white" id: "header-right" >
             アカウント <b class="caret"></b></a>
             <ul class="dropdown-menu">
               <li><%= link_to "勤怠表示画面", current_user %></li>
               <li><%= link_to "設定", edit_user_path(current_user) %></li>
+              
               <li class="divider"></li>
               <li><%= link_to "ログアウト", logout_path, method: :delete %></li>
             </ul>
           </li>
             
-        <!--非ログイン-->
         <% else %>
           <li><%= link_to "トップへ", root_path, id: "header-right" %></li>
           <li><%= link_to "ログイン", login_path, id: "header-right" %></li>
         <% end %>
       </ul>
     </nav>
+    
   </div>
+  
 </header>

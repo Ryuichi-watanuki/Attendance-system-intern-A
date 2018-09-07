@@ -1,7 +1,6 @@
 require "time"
 
 class AttendancesController < ApplicationController
-  include UsersHelper
   
   # 勤怠編集画面 
   def attendance_edit
