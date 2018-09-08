@@ -22,8 +22,6 @@ Rails.application.routes.draw do
     end
   end
   
-
-  
   resource :attendances
   
   resources :account_activations, only: [:edit]

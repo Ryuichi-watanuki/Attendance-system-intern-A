@@ -1,7 +1,7 @@
 require "time"
 
 class AttendancesController < ApplicationController
-  
+
   # 勤怠編集画面 
   def attendance_edit
     @user = User.find(params[:id])
@@ -30,7 +30,7 @@ class AttendancesController < ApplicationController
     @first_day, @last_day).order('attendance_day')
     
   end
-  
+
   # 勤怠編集画面ー更新ボタン
   def update_bunch
     @user = User.find(params[:id])
@@ -59,14 +59,13 @@ class AttendancesController < ApplicationController
     end #eachの締め
     redirect_to user_url(@user, params:{ id: @user.id, first_day: params[:first_day]})
   end
-  
-  
+
+
   # プライベート
   private
   
     def attendances_params
       params.permit(attendances: [:time_in, :time_out])[:attendances]
     end
-
 
 end

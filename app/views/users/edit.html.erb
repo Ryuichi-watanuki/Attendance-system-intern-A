@@ -5,28 +5,28 @@
   <div class="col-md-6 col-md-offset-3">
     <%= form_for(@user) do |f| %>
       <%= render 'shared/error_messages', object: f.object %>
-
+      
       <%= f.label :名前 %>
       <%= f.text_field :name, class: 'form-control' %>
-
+      
       <%= f.label :メールアドレス %>
       <%= f.email_field :email, class: 'form-control' %>
-
+      
       <%= f.label :所属 %>
       <%= f.text_field :affiliation, class: 'form-control' %>
-
+      
       <%= f.label :基本時間 %>
       <%= f.time_field :basic_time, class: 'form-control' %>
-
+      
       <%= f.label :指定勤務時間 %>
       <%= f.time_field :specified_working_time, class: 'form-control'%>
-
+      
       <%= f.label :パスワード %>
       <%= f.password_field :password, class: 'form-control' %>
       
       <%= f.label :password_confirmation, "パスワード再確認" %>
       <%= f.password_field :password_confirmation, class: 'form-control' %>
-
+      
       <%= f.submit "更新", class: "btn btn-primary" %>
     <% end %>
   </div>

@@ -9,7 +9,7 @@
   <%= hidden_field_tag :first_day, @first_day %>
   
   <table class = "table-bordered table-striped table-condensed">
-    
+
     <thead>
       <tr>
         <th width = "7%">日付</th>
@@ -22,7 +22,7 @@
         <th width = "10%">指示者</th>
       </tr>
     </thead>
-    
+
     <tbody>
       <% @days.each do |d| %>
         <%= fields_for "attendances[]", d do |tf| %>
@@ -31,11 +31,7 @@
             <td class = "day"><%= @week[d.attendance_day.wday] %></td>
             <td><%= tf.time_field :time_in, class: "form-control tf" %></td>
             <td><%= tf.time_field :time_out, class: "form-control tf" %></td>
-            <td>
-              <% if d.time_in.present? && d.time_out.present? %>
-                <%= working_hours(d.time_in,d.time_out) %>
-              <% end %>
-            </td>
+            <td><%= working_hours(d.time_in,d.time_out) if d.time_in.present? && d.time_out.present? %></td>
             <td></td>
             <td></td>
             <td></td>
@@ -43,15 +39,15 @@
         <% end %>
       <% end %>
     </tbody>
-    
+
   </table>
-  
+
   <center>
     <%= f.submit "編集内容で更新", style:"width:300px", class: "btn btn-primary" %>
-    
+
     <%= link_to "キャンセル", user_url(@user, params:{first_day: @first_day }),\
     style:"width:300px", class: "btn btncancel btn-default" %>
   </center>
-  
+
   <% end %>
 </div>
